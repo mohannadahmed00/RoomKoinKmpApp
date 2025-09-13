@@ -6,8 +6,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 
 fun getRoomDatabase(
-    builder: RoomDatabase.Builder<PeopleDatabase>
-): PeopleDatabase {
+    builder: RoomDatabase.Builder<QuranDatabase>
+): QuranDatabase {
     return builder
         .setDriver(BundledSQLiteDriver())
         .setQueryCoroutineContext(Dispatchers.IO)

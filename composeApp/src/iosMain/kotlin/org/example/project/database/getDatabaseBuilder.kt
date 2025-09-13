@@ -7,9 +7,9 @@ import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSUserDomainMask
 
-fun getDatabaseBuilder(): RoomDatabase.Builder<PeopleDatabase> {
-    val dbFilePath = documentDirectory() + "/my_room.db"
-    return Room.databaseBuilder<PeopleDatabase>(
+fun getDatabaseBuilder(): RoomDatabase.Builder<QuranDatabase> {
+    val dbFilePath = documentDirectory() + "/hafs_smart_v8.db"
+    return Room.databaseBuilder<QuranDatabase>(
         name = dbFilePath,
     )
 }

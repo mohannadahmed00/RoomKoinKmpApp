@@ -5,9 +5,10 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.kotlinx.serialization)
+    alias(libs.plugins.kotlin.cocoapods)
 }
 
 kotlin {
@@ -43,16 +44,21 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
-
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
-
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.gson)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        cocoapods {
+            version = "1.0.0"
+            extraSpecAttributes["resources"] =
+                "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
         }
     }
 }
@@ -94,4 +100,3 @@ dependencies {
     add("kspIosArm64", libs.androidx.room.compiler)
     debugImplementation(compose.uiTooling)
 }
-

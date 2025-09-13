@@ -1,0 +1,90 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "638dc01424d6decdd9e59e909cf18886",
+    "entities": [
+      {
+        "tableName": "ayat",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER, `jozz` INTEGER NOT NULL, `sura_no` INTEGER NOT NULL, `sura_name_en` TEXT NOT NULL, `sura_name_ar` TEXT NOT NULL, `page` INTEGER NOT NULL, `line_start` INTEGER NOT NULL, `line_end` INTEGER NOT NULL, `aya_no` INTEGER NOT NULL, `aya_text` TEXT NOT NULL, `aya_text_emlaey` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "jozz",
+            "columnName": "jozz",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sura_no",
+            "columnName": "sura_no",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sura_name_en",
+            "columnName": "sura_name_en",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sura_name_ar",
+            "columnName": "sura_name_ar",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "page",
+            "columnName": "page",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "line_start",
+            "columnName": "line_start",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "line_end",
+            "columnName": "line_end",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aya_no",
+            "columnName": "aya_no",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aya_text",
+            "columnName": "aya_text",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aya_text_emlaey",
+            "columnName": "aya_text_emlaey",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '638dc01424d6decdd9e59e909cf18886')"
+    ]
+  }
+}

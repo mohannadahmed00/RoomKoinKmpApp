@@ -6,49 +6,22 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.example.project.database.PeopleDao
-import org.example.project.database.Person
+import org.example.project.database.AyaDao
 
-class DemoViewModel(private val dao: PeopleDao) : ViewModel() {
-    private val _state = MutableStateFlow(ScreenState())
+class DemoViewModel(private val dao: AyaDao) : ViewModel() {
+    private val _state = MutableStateFlow("")
     val state = _state.asStateFlow()
 
     init {
-        getPeople()
+        getAyatOfSurah()
     }
 
-    fun getPeople() {
+    private fun getAyatOfSurah() {
         viewModelScope.launch(Dispatchers.IO) {
-            dao.getAll().collectLatest { people ->
-                _state.update { it.copy(people = people) }
-            }
-        }
-    }
-
-    fun changeName(value: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _state.update { it.copy(name = value) }
-        }
-    }
-
-    fun addPerson() {
-        viewModelScope.launch(Dispatchers.IO) {
-            dao.add(Person(name = _state.value.name))
-            _state.update { it.copy(name = "") }
-        }
-    }
-
-    fun deletePerson(person: Person) {
-        viewModelScope.launch(Dispatchers.IO) {
-            dao.delete(person)
+            val ayat = dao.getAyatBySura(2)
+            _state.update { ayat.joinToString(" ") { it.aya_text } }
         }
     }
 }
-
-data class ScreenState(
-    val people: List<Person> = emptyList(),
-    val name: String = ""
-)
