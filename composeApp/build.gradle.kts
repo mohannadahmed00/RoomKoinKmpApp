@@ -8,7 +8,6 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.kotlinx.serialization)
-    alias(libs.plugins.kotlin.cocoapods)
 }
 
 kotlin {
@@ -54,11 +53,6 @@ kotlin {
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
-        }
-        cocoapods {
-            version = "1.0.0"
-            extraSpecAttributes["resources"] =
-                "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
         }
     }
 }
