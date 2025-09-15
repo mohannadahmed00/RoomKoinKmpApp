@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import org.example.project.database.getDatabaseBuilder
+import org.example.project.database.DatabaseBuilder
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -13,7 +13,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             App(
                 DemoViewModel(
-                    getDatabaseBuilder(applicationContext).build().getAyaDao()
+                    DatabaseBuilder(applicationContext).getBuilder().build().getAyaDao()
                 )
             )
         }
