@@ -54,10 +54,6 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
-
-        val commonMain by getting {
-            resources.srcDirs("src/commonMain/composeResources")
-        }
     }
 }
 
@@ -97,61 +93,4 @@ dependencies {
     add("kspIosX64", libs.androidx.room.compiler)
     add("kspIosArm64", libs.androidx.room.compiler)
     debugImplementation(compose.uiTooling)
-}
-
-compose.resources {
-    publicResClass = true
-    packageOfResClass = "org.example.project"
-}
-
-// Ensure KSP depends on Compose resource generation for iOS targets
-listOf(
-    "kspKotlinIosSimulatorArm64",
-    "kspKotlinIosX64",
-    "kspKotlinIosArm64"
-).forEach { taskName ->
-    tasks.matching { it.name == taskName }.configureEach {
-        dependsOn(
-            "generateComposeResClass",
-            "generateExpectResourceCollectorsForCommonMain",
-            "generateResourceAccessorsForAppleMain",
-            "generateResourceAccessorsForNativeMain",
-            "generateResourceAccessorsForIosMain",
-            "generateResourceAccessorsForCommonMain"
-        )
-        // Target-specific accessors when present
-        when (taskName) {
-            "kspKotlinIosSimulatorArm64" -> dependsOn(
-                "generateResourceAccessorsForIosSimulatorArm64Main",
-                "generateActualResourceCollectorsForIosSimulatorArm64Main"
-            )
-            "kspKotlinIosX64" -> dependsOn(
-                "generateResourceAccessorsForIosX64Main",
-                "generateActualResourceCollectorsForIosX64Main"
-            )
-            "kspKotlinIosArm64" -> dependsOn(
-                "generateResourceAccessorsForIosArm64Main",
-                "generateActualResourceCollectorsForIosArm64Main"
-            )
-        }
-    }
-}
-
-// Ensure KSP depends on Compose resource generation for Android variants
-listOf(
-    "kspDebugKotlinAndroid",
-    "kspReleaseKotlinAndroid"
-).forEach { taskName ->
-    tasks.matching { it.name == taskName }.configureEach {
-        dependsOn(
-            "generateComposeResClass",
-            "generateExpectResourceCollectorsForCommonMain",
-            "generateResourceAccessorsForCommonMain",
-            "generateResourceAccessorsForAndroidMain",
-            "generateActualResourceCollectorsForAndroidMain"
-        )
-        if (taskName == "kspDebugKotlinAndroid") {
-            dependsOn("generateResourceAccessorsForAndroidDebug")
-        }
-    }
 }

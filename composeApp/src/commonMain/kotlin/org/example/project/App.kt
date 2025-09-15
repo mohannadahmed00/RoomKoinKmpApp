@@ -15,13 +15,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import roomkoinproject.composeapp.generated.resources.Res
+import roomkoinproject.composeapp.generated.resources.hafs_smart_08
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextDirection
 import org.jetbrains.compose.resources.Font
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
-import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-@OptIn(ExperimentalResourceApi::class)
 @Composable
 @Preview
 fun App(viewModel: DemoViewModel) {
@@ -34,11 +36,9 @@ fun App(viewModel: DemoViewModel) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val hafsFont = Font(Res.font.hafs_smart_08)
-
             Text(
                 text = ayas,
-                fontFamily = FontFamily(hafsFont),
+                fontFamily = FontFamily(Font(Res.font.hafs_smart_08)),
                 fontSize = 20.sp,
                 textAlign = TextAlign.Justify,
                 style = TextStyle(textDirection = TextDirection.Rtl)

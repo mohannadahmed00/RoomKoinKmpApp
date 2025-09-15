@@ -3,11 +3,12 @@ package org.example.project.database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.cinterop.ExperimentalForeignApi
-import platform.Foundation.*
+import platform.Foundation.NSDocumentDirectory
+import platform.Foundation.NSFileManager
+import platform.Foundation.NSUserDomainMask
 
 fun getDatabaseBuilder(): RoomDatabase.Builder<QuranDatabase> {
     val dbFilePath = documentDirectory() + "/hafs_smart_v8.db"
-    ensureBundledDatabaseCopied(dbFilePath)
     return Room.databaseBuilder<QuranDatabase>(
         name = dbFilePath,
     )
@@ -23,17 +24,4 @@ private fun documentDirectory(): String {
         error = null,
     )
     return requireNotNull(documentDirectory?.path)
-}
-
-@OptIn(ExperimentalForeignApi::class)
-private fun ensureBundledDatabaseCopied(destinationPath: String) {
-    val fileManager = NSFileManager.defaultManager
-    if (fileManager.fileExistsAtPath(destinationPath)) return
-
-    val bundlePath = NSBundle.mainBundle.bundlePath
-    val packagedDbPath = "$bundlePath/compose-resources/composeResources/org.example.project/files/hafs_smart_v8.db"
-
-    if (fileManager.fileExistsAtPath(packagedDbPath)) {
-        fileManager.copyItemAtPath(packagedDbPath, destinationPath, error = null)
-    }
 }
